@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0127A74E28ED266D00BB6B33 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0187580F28EC1FD700307121 /* SDL2.framework */; };
+		0127A75028ED2ABC00BB6B33 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0127A74F28ED2ABC00BB6B33 /* SDL2_image.framework */; };
+		01413837297F9CDC0031F166 /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01413836297F9CDC0031F166 /* SDL2_ttf.framework */; };
+		0141383A297FC23D0031F166 /* buttons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01413838297FC23D0031F166 /* buttons.cpp */; };
+		015EA65A28EC5F430080926E /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 015EA65828EC5F430080926E /* game.cpp */; };
+		0178142128EDA6AC0006CE49 /* game-object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0178141F28EDA6AC0006CE49 /* game-object.cpp */; };
 		0183B17C28EC0ECC00A01EC9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0183B17B28EC0ECC00A01EC9 /* main.cpp */; };
+		01C058A729795FD400DD01F8 /* soldier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C058A529795FD400DD01F8 /* soldier.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		0183B17628EC0ECC00A01EC9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 8;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
@@ -23,8 +30,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0127A74F28ED2ABC00BB6B33 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
+		01413835297F9BBB0031F166 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		01413836297F9CDC0031F166 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		01413838297FC23D0031F166 /* buttons.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = buttons.cpp; sourceTree = "<group>"; };
+		01413839297FC23D0031F166 /* buttons.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = buttons.hpp; sourceTree = "<group>"; };
+		015EA65828EC5F430080926E /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		015EA65928EC5F430080926E /* game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
+		0178141F28EDA6AC0006CE49 /* game-object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "game-object.cpp"; sourceTree = "<group>"; };
+		0178142028EDA6AC0006CE49 /* game-object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = "game-object.hpp"; sourceTree = "<group>"; };
 		0183B17828EC0ECC00A01EC9 /* Lemmings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lemmings; sourceTree = BUILT_PRODUCTS_DIR; };
 		0183B17B28EC0ECC00A01EC9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0187580F28EC1FD700307121 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		01C058A529795FD400DD01F8 /* soldier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = soldier.cpp; sourceTree = "<group>"; };
+		01C058A629795FD400DD01F8 /* soldier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = soldier.hpp; sourceTree = "<group>"; };
+		01F5023428EEA4D300E51A07 /* soldier-run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-run.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,17 +52,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01413837297F9CDC0031F166 /* SDL2_ttf.framework in Frameworks */,
+				0127A75028ED2ABC00BB6B33 /* SDL2_image.framework in Frameworks */,
+				0127A74E28ED266D00BB6B33 /* SDL2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0127A75728ED328500BB6B33 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				01413835297F9BBB0031F166 /* Roboto-Black.ttf */,
+				01F5023428EEA4D300E51A07 /* soldier-run.png */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 		0183B16F28EC0ECC00A01EC9 = {
 			isa = PBXGroup;
 			children = (
 				0183B17A28EC0ECC00A01EC9 /* Lemmings */,
 				0183B17928EC0ECC00A01EC9 /* Products */,
+				0187580E28EC1FD700307121 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,9 +90,28 @@
 		0183B17A28EC0ECC00A01EC9 /* Lemmings */ = {
 			isa = PBXGroup;
 			children = (
+				0127A75728ED328500BB6B33 /* assets */,
 				0183B17B28EC0ECC00A01EC9 /* main.cpp */,
+				015EA65828EC5F430080926E /* game.cpp */,
+				015EA65928EC5F430080926E /* game.hpp */,
+				0178141F28EDA6AC0006CE49 /* game-object.cpp */,
+				0178142028EDA6AC0006CE49 /* game-object.hpp */,
+				01C058A529795FD400DD01F8 /* soldier.cpp */,
+				01C058A629795FD400DD01F8 /* soldier.hpp */,
+				01413838297FC23D0031F166 /* buttons.cpp */,
+				01413839297FC23D0031F166 /* buttons.hpp */,
 			);
 			path = Lemmings;
+			sourceTree = "<group>";
+		};
+		0187580E28EC1FD700307121 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				01413836297F9CDC0031F166 /* SDL2_ttf.framework */,
+				0127A74F28ED2ABC00BB6B33 /* SDL2_image.framework */,
+				0187580F28EC1FD700307121 /* SDL2.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +171,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0178142128EDA6AC0006CE49 /* game-object.cpp in Sources */,
+				0141383A297FC23D0031F166 /* buttons.cpp in Sources */,
 				0183B17C28EC0ECC00A01EC9 /* main.cpp in Sources */,
+				01C058A729795FD400DD01F8 /* soldier.cpp in Sources */,
+				015EA65A28EC5F430080926E /* game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +295,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = Lemmings/assets;
+				FRAMEWORK_SEARCH_PATHS = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				HEADER_SEARCH_PATHS = "";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -247,6 +307,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = Lemmings/assets;
+				FRAMEWORK_SEARCH_PATHS = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				HEADER_SEARCH_PATHS = "";
+				OTHER_CODE_SIGN_FLAGS = "--deep";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
