@@ -5,7 +5,52 @@
 const SDL_Color mainColor = { 0x48, 0x48, 0x48, 0xFF };
 const SDL_Color secondColor = { 0xD0, 0xD0, 0xD0, 0xFF };
 const SDL_Color blackColor = { 0x00, 0x00, 0x00, 0xFF };
+const SDL_Color whiteColor = { 0xFF, 0xFF, 0xFF, 0xFF };
 
+int iteration = 0;
+int soldiersCreated = 0;
+
+// Метод, который заполняет землю по горизонтали от from до to с координаты "y" шириной size
+void makeHorizontalGround(bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT], int from, int to, int y, int size = 18) {
+    for (int i = from; i < to; ++i) {
+        for (int j = 0; j < size; ++j) {
+            groundMatrix[i][y + j] = true;
+        }
+    }
+}
+// Метод, который заполняет землю по вертикали от from до to с координаты "ч" шириной size
+void makeVerticalGround(bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT], int from, int to, int x, int size = 18) {
+    for (int i = from; i < to; ++i) {
+        for (int j = 0; j < size; ++j) {
+            groundMatrix[x + j][i] = true;
+        }
+    }
+}
+// Общий метод, где описывается логика заполнения карты землёй
+void fillGround(bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT]) {
+    for (unsigned int i = 0; i < SCREEN_WIDTH; ++i) {
+        for (unsigned int j = 0; j < SCREEN_HEIGHT_WITHOUT_MENU; ++j) {
+            groundMatrix[i][j] = false;
+        }
+    }
+    makeHorizontalGround(groundMatrix, 0, SCREEN_WIDTH - 200, 50);
+    makeVerticalGround(groundMatrix, 0, 50, 513);
+    
+    makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 200, SCREEN_WIDTH, 100);
+    makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 300, SCREEN_WIDTH - 200, 150);
+    
+    makeHorizontalGround(groundMatrix, 50, SCREEN_WIDTH - 300, 200);
+    makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 200, SCREEN_WIDTH, 200);
+    
+    makeHorizontalGround(groundMatrix, 0, 100, 250);
+    makeVerticalGround(groundMatrix, 200, 250, 91);
+    
+    makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 350, SCREEN_WIDTH, 300);
+    makeHorizontalGround(groundMatrix, 0, SCREEN_WIDTH, 360);
+    makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 400, SCREEN_WIDTH, SCREEN_HEIGHT_WITHOUT_MENU - 100);
+    makeVerticalGround(groundMatrix, SCREEN_HEIGHT_WITHOUT_MENU - 100, SCREEN_HEIGHT_WITHOUT_MENU, SCREEN_WIDTH - 403);
+}
+// Метод для рендера текста на холст
 void renderText(SDL_Renderer* renderer, TTF_Font* font, SDL_Color color, const std::string &text, SDL_Rect rect) {
     SDL_Surface* surfaceMessage = TTF_RenderText_Blended(font, text.c_str(), color);
     SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
@@ -15,7 +60,7 @@ void renderText(SDL_Renderer* renderer, TTF_Font* font, SDL_Color color, const s
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(message);
 }
-
+// Метод, где происходит инициализация игры - инициализируются нужные нам библиотеки (SDL_Image, SDL_ttf), создаётся окно с объектом рендерера, создаются кнопки, подгружаются шрифты и разного рода объекты
 int Game::init(const int& width, const int& height) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -42,57 +87,146 @@ int Game::init(const int& width, const int& height) {
     }
     
     bigFont = TTF_OpenFont("assets/Roboto-Black.ttf", 60);
-    smallFont = TTF_OpenFont("assets/Roboto-Black.ttf", 28);
+    regularFont = TTF_OpenFont("assets/Roboto-Black.ttf", 28);
+    smallFont = TTF_OpenFont("assets/Roboto-Black.ttf", 18);
     
-    Button playB(renderer, "Play", smallFont, blackColor);
-    Button exitB(renderer, "Exit", smallFont, blackColor);
+    const int doorWidth = 80;
+    const int doorHeight = 63;
     
-    playButton = &playB;
-    exitButton = &exitB;
+    SDL_Rect doorSize;
+    doorSize = { SCREEN_WIDTH - doorWidth * 2, SCREEN_HEIGHT_WITHOUT_MENU - doorHeight, doorWidth, doorHeight };
     
-    playButton->setCoords(50, 200);
-    exitButton->setCoords(50, 260);
+    finishDoor = GameObject(renderer, doorSize, 1, "assets/door.png");
+    
+    smallMenuRect = { 0, SCREEN_HEIGHT_WITHOUT_MENU, SCREEN_WIDTH, SCREEN_HEIGHT };
+    
+    SDL_Rect backgroundSize;
+    backgroundSize = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+    background = GameObject(renderer, backgroundSize, 1, "assets/background.png");
+    
+    playButton.init(renderer, "Play", regularFont, blackColor);
+    exitButton.init(renderer, "Exit", regularFont, blackColor);
+    
+    playButton.setCoords(50, 200);
+    exitButton.setCoords(50, 250);
+    
+    digDownButton.init(renderer, "assets/dig-down-btn.png");
+    digToDirectionButton.init(renderer, "assets/dig-to-direction-btn.png");
+    blockButton.init(renderer, "assets/block-btn.png");
+    
+    digDownButton.setCoords(0, SCREEN_HEIGHT_WITHOUT_MENU);
+    digToDirectionButton.setCoords(79, SCREEN_HEIGHT_WITHOUT_MENU);
+    blockButton.setCoords(158, SCREEN_HEIGHT_WITHOUT_MENU);
+    
+    fillGround(groundMatrix);
 
     return 0;
 };
-
-bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT];
-int iteration = 0;
-int soldiersCreated = 0;
-
+// Метод для прослушивания кликов от юзера по холсту
+// Тут описана логика разного взаимодействия при разных режимах игры (игра, меню)
 void Game::handleClick(SDL_MouseButtonEvent &e) {
-    printf("%d", true);
+    switch (state) {
+        case Run:
+            if (modeIsChosen) {
+                for (int i = 0; i < soldiersCreated; ++i) {
+                    SDL_Rect box = soldiers[i].getBox();
+                    bool soldierChosen = box.x < e.x && box.x + box.w > e.x && box.y < e.y && box.y + box.h > e.y;
+                    SoldierMode mode = soldiers[i].getMode();
+                    if (soldierChosen && mode != fly && mode != block) {
+                        soldiers[i].setMode(chosenMode);
+                        break;
+                    }
+                }
+            }
+            if (digDownButton.isCoordsInside(e.x, e.y)) {
+                modeIsChosen = true;
+                chosenMode = digDown;
+                break;
+            }
+            if (digToDirectionButton.isCoordsInside(e.x, e.y)) {
+                modeIsChosen = true;
+                chosenMode = digToDirection;
+                break;
+            }
+            if (blockButton.isCoordsInside(e.x, e.y)) {
+                modeIsChosen = true;
+                chosenMode = block;
+                break;
+            }
+            break;
+        case MainMenu:
+            if (playButton.isCoordsInside(e.x, e.y)) {
+                state = Run;
+                return;
+            }
+            if (exitButton.isCoordsInside(e.x, e.y)) {
+                quit = true;
+                return;
+            }
+            break;
+            
+        default:
+            break;
+    }
 }
-
+// Метод для запуска 1 итерации основной игры
+// Тут описана логика взаимодействия объектов и их отрисовка
 void Game::runGame() {
-    SDL_SetRenderDrawColor(renderer, mainColor.r, mainColor.g, mainColor.b, mainColor.a);
-    if (iteration % 40 == 0 && soldiersCreated < SOLDIERS_COUNT)
+    if (iteration % 100 == 0 && soldiersCreated < SOLDIERS_COUNT)
         soldiers[soldiersCreated++] = Soldier(renderer);
+    
+    background.draw();
+    finishDoor.draw();
+    
+    SDL_SetRenderDrawColor(renderer, blackColor.r, blackColor.g, blackColor.b, blackColor.a);
+    SDL_RenderDrawRect(renderer, &smallMenuRect);
     
     for (int i = 0; i < soldiersCreated; ++i) {
         SDL_Rect box = soldiers[i].getBox();
-        if (box.x + box.w > SCREEN_WIDTH) {
-            soldiers[i].setDirection(left);
-        } else if (box.x < 0) {
-            soldiers[i].setDirection(right);
+        if (box.x >= finishDoor.box.x &&
+            box.x <= finishDoor.box.x + finishDoor.box.w &&
+            box.y >= finishDoor.box.y &&
+            box.y <= finishDoor.box.y + finishDoor.box.h) {
+            soldiers[i].gone = true;
         }
-        soldiers[i].action();
+        soldiers[i].action(iteration, groundMatrix, soldiers);
         soldiers[i].draw();
     }
-}
-
-void Game::runMainMenu() {
+    
+    SDL_SetRenderDrawColor(renderer, mainColor.r, mainColor.g, mainColor.b, mainColor.a);
+    
+    for (unsigned int i = 0; i < SCREEN_WIDTH; ++i) {
+        SDL_RenderDrawPoint(renderer, i, SCREEN_HEIGHT_WITHOUT_MENU);
+        for (unsigned int j = 0; j < SCREEN_HEIGHT_WITHOUT_MENU; ++j) {
+            if (groundMatrix[i][j]) SDL_RenderDrawPoint(renderer, i, j);
+        }
+    }
+    
+    digDownButton.draw();
+    digToDirectionButton.draw();
+    blockButton.draw();
+    
     SDL_SetRenderDrawColor(renderer, secondColor.r, secondColor.g, secondColor.b, secondColor.a);
+}
+// Метод для отрисовки главного меню
+// Тут рисуются кнопки меню и разного рода тексты
+void Game::runMainMenu() {
+    SDL_SetRenderDrawColor(renderer, whiteColor.r, whiteColor.g, whiteColor.b, whiteColor.a);
     SDL_Rect message_rect;
     message_rect.x = SCREEN_WIDTH / 3.5;
     message_rect.y = 20;
     
-
-    exitButton->draw();
-
+    playButton.draw();
+    exitButton.draw();
+    
     renderText(renderer, bigFont, mainColor, "Lemmings", message_rect);
+    
+    message_rect.x = 20;
+    message_rect.y = SCREEN_HEIGHT - 40;
+    renderText(renderer, smallFont, blackColor, "Made by Shukshin Stepan Vladimirovich", message_rect);
 }
-
+// Метод для запуска итерации игры, где в зависимости от режима вызывается нужный метод отрисовки:
+// Либо метод отрисовки игры, либо метод отрисовки главного меню
 int Game::iterate() {
     SDL_RenderClear(renderer);
     
@@ -111,7 +245,7 @@ int Game::iterate() {
     SDL_RenderPresent(renderer);
     return 0;
 }
-
+// Метод для выхода из игры и очистки ненужных нам объектов
 int Game::exit() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

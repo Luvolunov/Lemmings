@@ -16,7 +16,7 @@ void GameObject::draw() {
     Uint32 ticks = SDL_GetTicks();
     Uint32 seconds = ticks / animationTicksDelay;
     int sprite = seconds % spritesCount;
-    SDL_Rect zone = { sprite * box.w, box.y, box.w, box.h };
+    SDL_Rect zone = { sprite * box.w, 0, box.w, box.h };
     if (!flipped) {
         SDL_RenderCopy(renderer, image, &zone, &box);
     } else {
@@ -24,7 +24,7 @@ void GameObject::draw() {
     }
 }
 
-void GameObject::move(GameObjectDirection& direction, const int pixels) {
+void GameObject::move(GameObjectDirection direction, const int pixels) {
     switch (direction) {
         case left:
             box.x -= pixels;

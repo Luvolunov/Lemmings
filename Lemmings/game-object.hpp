@@ -22,7 +22,7 @@ public:
     
     GameObject(SDL_Renderer *renderer, SDL_Rect& size, Uint8 spritesCount, const char *file);
     void draw();
-    void move(GameObjectDirection& direction, int pixels);
+    void move(GameObjectDirection direction, int pixels);
     GameObject() {}
     void setAnimationDelay(const Uint8 ticksDelay);
 protected:

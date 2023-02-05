@@ -9,38 +9,43 @@
 #include "game-object.hpp"
 #include "soldier.hpp"
 #include "buttons.hpp"
-
-const int SCREEN_WIDTH = 720;
-const int SCREEN_HEIGHT = 600;
-const unsigned int SOLDIERS_COUNT = 10;
+#include "constants.h"
 
 enum GameState {
     MainMenu,
     Run,
-    Menu,
 };
 
 class Game {
 private:
-    void runGame();
-    void runMenu();
-    void runMainMenu();
-    TTF_Font* bigFont;
-    TTF_Font* smallFont;
-    Button* playButton;
-    Button* exitButton;
+    void runGame(); // Метод отрисовки и итерации игры
+    void runMainMenu(); // Метод отрисовки меню
+    TTF_Font* bigFont; // Большой шрифт
+    TTF_Font* regularFont; // Средний шрифт
+    TTF_Font* smallFont; // Маленький шрифт
+    Button playButton; // Объект кнопки "Play" в главном меню
+    Button exitButton; // Объект кнопки "Exit" в главном меню
+    ImageButton digDownButton; // Объект кнопки "Копать вниз" в меню игры
+    ImageButton digToDirectionButton; // Объект кнопки "Копать в сторону" в меню игры
+    ImageButton blockButton; // Объект кнопки "Блокировать" в меню игры
+    SoldierMode chosenMode; // Выбранный приказ
+    bool modeIsChosen = false; // Флаг для обозначения того, выбран ли приказ
 public:
     Game(): state(MainMenu) {}
     int init(const int& width, const int& height);
     int iterate();
     int exit();
     bool quit = false;
+    bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT];
     void handleClick(SDL_MouseButtonEvent &e);
     
-    SDL_Window *window;
-    Soldier soldiers[SOLDIERS_COUNT];
-    SDL_Renderer *renderer;
-    GameState state;
+    SDL_Window *window; // Ссылка на объект окна
+    Soldier soldiers[SOLDIERS_COUNT]; // Массив солдатов
+    GameObject finishDoor; // Объект финишной двери
+    GameObject background; // Объект фона
+    SDL_Rect smallMenuRect;
+    SDL_Renderer *renderer; // Ссылка на рендерер
+    GameState state; // Состояние игры (игры или меню)
 };
 
 #endif /* game_hpp */

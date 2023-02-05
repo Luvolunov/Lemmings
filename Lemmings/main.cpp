@@ -8,7 +8,7 @@ int main(int argc, char* args[]) {
     };
 
     SDL_Event e;
-    while(game.quit == false) {
+    while(!game.quit) {
         while (SDL_PollEvent(&e)) {
             switch (e.type) {
                 case SDL_QUIT:
