@@ -74,6 +74,8 @@ bool checkIsGroundRight(SDL_Rect box, bool matrix[SCREEN_WIDTH][SCREEN_HEIGHT]) 
 void Soldier::action(int iteration, bool matrix[SCREEN_WIDTH][SCREEN_HEIGHT], Soldier soldiers[SOLDIERS_COUNT]) {
     if (gone) { return; }
     SDL_Rect box = soldier.box;
+    bool isNotRightGround = !matrix[box.x + box.w][box.y] || box.x + box.w >= SCREEN_WIDTH;
+    bool isNotLeftGround = !matrix[box.x - 1][box.y] || box.x <= 0;
     switch (mode) {
         case run:
             if (!checkIsGroundDown(box, matrix) && box.y + box.h < SCREEN_HEIGHT_WITHOUT_MENU) {
@@ -117,13 +119,17 @@ void Soldier::action(int iteration, bool matrix[SCREEN_WIDTH][SCREEN_HEIGHT], So
             }
             break;
         case digToDirection:
-            if (iteration % 200 == 0 && (!matrix[box.x + box.w][box.y] || box.x + box.w >= SCREEN_WIDTH)) {
+            if (iteration % 200 == 0 && ((direction == right && isNotRightGround) || (direction == left && isNotLeftGround))) {
                 setMode(run);
                 break;
             }
             if (iteration % 10 == 0) {
                 for (int i = 0; i < box.h; ++i) {
-                    matrix[box.x + box.w][box.y + i] = false;
+                    if (direction == right) {
+                        matrix[box.x + box.w][box.y + i] = false;
+                    } else if (direction == left) {
+                        matrix[box.x - 1][box.y + i] = false;
+                    }
                 }
                 soldier.move(direction, 1);
             }

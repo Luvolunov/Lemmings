@@ -38,6 +38,7 @@ void fillGround(bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT]) {
     
     makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 200, SCREEN_WIDTH, 100);
     makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 300, SCREEN_WIDTH - 200, 150);
+    makeVerticalGround(groundMatrix, 50, 222, 91);
     
     makeHorizontalGround(groundMatrix, 50, SCREEN_WIDTH - 300, 200);
     makeHorizontalGround(groundMatrix, SCREEN_WIDTH - 200, SCREEN_WIDTH, 200);
@@ -122,7 +123,7 @@ int Game::init(const int& width, const int& height) {
 
     return 0;
 };
-// Метод для прослушивания кликов от юзера по холсту
+// Метод для прослеживания кликов от юзера по холсту
 // Тут описана логика разного взаимодействия при разных режимах игры (игра, меню)
 void Game::handleClick(SDL_MouseButtonEvent &e) {
     switch (state) {

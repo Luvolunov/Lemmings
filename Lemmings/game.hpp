@@ -10,12 +10,12 @@
 #include "soldier.hpp"
 #include "buttons.hpp"
 #include "constants.h"
-
+// Состояние Игры
 enum GameState {
     MainMenu,
     Run,
 };
-
+// Класс Игры
 class Game {
 private:
     void runGame(); // Метод отрисовки и итерации игры
@@ -35,8 +35,8 @@ public:
     int init(const int& width, const int& height);
     int iterate();
     int exit();
-    bool quit = false;
-    bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT];
+    bool quit = false; // Свойство, отвечающее за выход из игры
+    bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT]; // Матрица, отвечающая за "землю"
     void handleClick(SDL_MouseButtonEvent &e);
     
     SDL_Window *window; // Ссылка на объект окна
@@ -45,7 +45,7 @@ public:
     GameObject background; // Объект фона
     SDL_Rect smallMenuRect;
     SDL_Renderer *renderer; // Ссылка на рендерер
-    GameState state; // Состояние игры (игры или меню)
+    GameState state; // Состояние игры (игра или меню)
 };
 
 #endif /* game_hpp */
