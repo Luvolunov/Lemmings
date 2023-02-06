@@ -17,6 +17,9 @@ int main(int argc, char* args[]) {
                 case SDL_MOUSEBUTTONDOWN:
                     game.handleClick(e.button);
                     break;
+                case SDL_MOUSEMOTION:
+                    game.motionEvent = e.motion;
+                    break;
                 default:
                     break;
             }

@@ -38,6 +38,7 @@ public:
     bool quit = false; // Свойство, отвечающее за выход из игры
     bool groundMatrix[SCREEN_WIDTH][SCREEN_HEIGHT]; // Матрица, отвечающая за "землю"
     void handleClick(SDL_MouseButtonEvent &e);
+    SDL_MouseMotionEvent motionEvent;
     
     SDL_Window *window; // Ссылка на объект окна
     Soldier soldiers[SOLDIERS_COUNT]; // Массив солдатов
@@ -46,6 +47,8 @@ public:
     SDL_Rect smallMenuRect;
     SDL_Renderer *renderer; // Ссылка на рендерер
     GameState state; // Состояние игры (игра или меню)
+    GameObject fire;
+    GameObject soldierHead;
 };
 
 #endif /* game_hpp */

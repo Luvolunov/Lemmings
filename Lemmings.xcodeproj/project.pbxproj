@@ -32,13 +32,11 @@
 /* Begin PBXFileReference section */
 		010F2DF529825DC500A30436 /* door.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door.png; sourceTree = "<group>"; };
 		010F2DF729826D4B00A30436 /* soldier-dig-direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-dig-direction.png"; sourceTree = "<group>"; };
-		0121E1A029801F5F00310812 /* soldier-fly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-fly.png"; sourceTree = "<group>"; };
 		0127A74F28ED2ABC00BB6B33 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		012EC992298FE633009B19F8 /* dig-down-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dig-down-btn.png"; sourceTree = "<group>"; };
 		012EC993298FE6B4009B19F8 /* dig-to-direction-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dig-to-direction-btn.png"; sourceTree = "<group>"; };
 		012EC994298FE76B009B19F8 /* block-btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "block-btn.png"; sourceTree = "<group>"; };
 		012EC995298FE7F5009B19F8 /* soldier-block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-block.png"; sourceTree = "<group>"; };
-		012EC999298FF516009B19F8 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		01413835297F9BBB0031F166 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		01413836297F9CDC0031F166 /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
 		01413838297FC23D0031F166 /* buttons.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = buttons.cpp; sourceTree = "<group>"; };
@@ -54,6 +52,13 @@
 		01C058A629795FD400DD01F8 /* soldier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = soldier.hpp; sourceTree = "<group>"; };
 		01F5023428EEA4D300E51A07 /* soldier-run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-run.png"; sourceTree = "<group>"; };
 		01FC33EF29816C36006F67A4 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		01FE65C32991441E0024C166 /* BlackOpsOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BlackOpsOne-Regular.ttf"; sourceTree = "<group>"; };
+		01FE65C829914AF10024C166 /* soldier-fly.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-fly.png"; sourceTree = "<group>"; };
+		01FE65C929914B380024C166 /* soldier-fly-orig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-fly-orig.png"; sourceTree = "<group>"; };
+		01FE65CD299150CE0024C166 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		01FE65CF299151BE0024C166 /* door-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "door-1.png"; sourceTree = "<group>"; };
+		01FE65D0299158110024C166 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
+		01FE65D329915A520024C166 /* soldier-head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-head.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,14 +78,19 @@
 		0127A75728ED328500BB6B33 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				012EC999298FF516009B19F8 /* background.png */,
+				01FE65D329915A520024C166 /* soldier-head.png */,
+				01FE65D0299158110024C166 /* fire.png */,
+				01FE65CF299151BE0024C166 /* door-1.png */,
+				01FE65CD299150CE0024C166 /* background.png */,
+				01FE65C929914B380024C166 /* soldier-fly-orig.png */,
+				01FE65C829914AF10024C166 /* soldier-fly.png */,
+				01FE65C32991441E0024C166 /* BlackOpsOne-Regular.ttf */,
 				012EC995298FE7F5009B19F8 /* soldier-block.png */,
 				012EC994298FE76B009B19F8 /* block-btn.png */,
 				012EC993298FE6B4009B19F8 /* dig-to-direction-btn.png */,
 				012EC992298FE633009B19F8 /* dig-down-btn.png */,
 				010F2DF729826D4B00A30436 /* soldier-dig-direction.png */,
 				010F2DF529825DC500A30436 /* door.png */,
-				0121E1A029801F5F00310812 /* soldier-fly.png */,
 				01413835297F9BBB0031F166 /* Roboto-Black.ttf */,
 				01F5023428EEA4D300E51A07 /* soldier-run.png */,
 			);

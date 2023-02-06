@@ -87,19 +87,19 @@ int Game::init(const int& width, const int& height) {
         return 1;
     }
     
-    bigFont = TTF_OpenFont("assets/Roboto-Black.ttf", 60);
-    regularFont = TTF_OpenFont("assets/Roboto-Black.ttf", 28);
-    smallFont = TTF_OpenFont("assets/Roboto-Black.ttf", 18);
+    bigFont = TTF_OpenFont("assets/BlackOpsOne-Regular.ttf", 60);
+    regularFont = TTF_OpenFont("assets/BlackOpsOne-Regular.ttf", 28);
+    smallFont = TTF_OpenFont("assets/BlackOpsOne-Regular.ttf", 18);
     
-    const int doorWidth = 80;
-    const int doorHeight = 63;
+    const int doorWidth = 56;
+    const int doorHeight = 56;
     
     SDL_Rect doorSize;
     doorSize = { SCREEN_WIDTH - doorWidth * 2, SCREEN_HEIGHT_WITHOUT_MENU - doorHeight, doorWidth, doorHeight };
     
-    finishDoor = GameObject(renderer, doorSize, 1, "assets/door.png");
+    finishDoor = GameObject(renderer, doorSize, 1, "assets/door-1.png");
     
-    smallMenuRect = { 0, SCREEN_HEIGHT_WITHOUT_MENU, SCREEN_WIDTH, SCREEN_HEIGHT };
+    smallMenuRect = { 0, SCREEN_HEIGHT_WITHOUT_MENU, SCREEN_WIDTH, 80 };
     
     SDL_Rect backgroundSize;
     backgroundSize = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -108,8 +108,8 @@ int Game::init(const int& width, const int& height) {
     playButton.init(renderer, "Play", regularFont, blackColor);
     exitButton.init(renderer, "Exit", regularFont, blackColor);
     
-    playButton.setCoords(50, 200);
-    exitButton.setCoords(50, 250);
+    playButton.setCoords(100, 200);
+    exitButton.setCoords(100, 250);
     
     digDownButton.init(renderer, "assets/dig-down-btn.png");
     digToDirectionButton.init(renderer, "assets/dig-to-direction-btn.png");
@@ -120,6 +120,14 @@ int Game::init(const int& width, const int& height) {
     blockButton.setCoords(158, SCREEN_HEIGHT_WITHOUT_MENU);
     
     fillGround(groundMatrix);
+    
+    SDL_Rect fireSize = { 203, 4, 24, 32 };
+    fire = GameObject(renderer, fireSize, 8, "assets/fire.png");
+    
+    SDL_Rect soldierHeadSize = { 350, 170, 256, 256 };
+    soldierHead = GameObject(renderer, soldierHeadSize, 1, "assets/soldier-head.png");
+    
+    fire.setAnimationDelay(100);
 
     return 0;
 };
@@ -133,7 +141,7 @@ void Game::handleClick(SDL_MouseButtonEvent &e) {
                     SDL_Rect box = soldiers[i].getBox();
                     bool soldierChosen = box.x < e.x && box.x + box.w > e.x && box.y < e.y && box.y + box.h > e.y;
                     SoldierMode mode = soldiers[i].getMode();
-                    if (soldierChosen && mode != fly && mode != block) {
+                    if (soldierChosen && mode == run) {
                         soldiers[i].setMode(chosenMode);
                         break;
                     }
@@ -179,16 +187,30 @@ void Game::runGame() {
     background.draw();
     finishDoor.draw();
     
+    SDL_SetRenderDrawColor(renderer, whiteColor.r, whiteColor.g, whiteColor.b, whiteColor.a);
+    SDL_RenderFillRect(renderer, &smallMenuRect);
+    
     SDL_SetRenderDrawColor(renderer, blackColor.r, blackColor.g, blackColor.b, blackColor.a);
     SDL_RenderDrawRect(renderer, &smallMenuRect);
     
     for (int i = 0; i < soldiersCreated; ++i) {
         SDL_Rect box = soldiers[i].getBox();
+        SoldierMode mode = soldiers[i].getMode();
         if (box.x >= finishDoor.box.x &&
             box.x <= finishDoor.box.x + finishDoor.box.w &&
             box.y >= finishDoor.box.y &&
             box.y <= finishDoor.box.y + finishDoor.box.h) {
             soldiers[i].gone = true;
+        }
+        if (
+            motionEvent.x >= box.x &&
+            motionEvent.x <= box.x + box.w &&
+            motionEvent.y >= box.y &&
+            motionEvent.y <= box.y + box.h &&
+            modeIsChosen && mode == run
+        ) {
+            SDL_SetRenderDrawColor(renderer, blackColor.r, blackColor.g, blackColor.b, blackColor.a);
+            SDL_RenderDrawRect(renderer, &box);
         }
         soldiers[i].action(iteration, groundMatrix, soldiers);
         soldiers[i].draw();
@@ -219,6 +241,9 @@ void Game::runMainMenu() {
     
     playButton.draw();
     exitButton.draw();
+    
+    fire.draw();
+    soldierHead.draw();
     
     renderText(renderer, bigFont, mainColor, "Lemmings", message_rect);
     
