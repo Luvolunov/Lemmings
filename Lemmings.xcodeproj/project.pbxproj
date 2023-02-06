@@ -59,6 +59,7 @@
 		01FE65CF299151BE0024C166 /* door-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "door-1.png"; sourceTree = "<group>"; };
 		01FE65D0299158110024C166 /* fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire.png; sourceTree = "<group>"; };
 		01FE65D329915A520024C166 /* soldier-head.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-head.png"; sourceTree = "<group>"; };
+		01FE65D429915C790024C166 /* soldier-dig.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-dig.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +79,7 @@
 		0127A75728ED328500BB6B33 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				01FE65D429915C790024C166 /* soldier-dig.png */,
 				01FE65D329915A520024C166 /* soldier-head.png */,
 				01FE65D0299158110024C166 /* fire.png */,
 				01FE65CF299151BE0024C166 /* door-1.png */,
