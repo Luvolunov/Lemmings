@@ -107,7 +107,7 @@ void Soldier::action(int iteration, bool matrix[SCREEN_WIDTH][SCREEN_HEIGHT], So
             soldier.move(bottom, 1);
             break;
         case digDown:
-            if (!matrix[box.x][box.y + box.h] || box.y + box.h >= SCREEN_HEIGHT_WITHOUT_MENU) {
+            if (!checkIsGroundDown(box, matrix) || box.y + box.h >= SCREEN_HEIGHT_WITHOUT_MENU) {
                 setMode(run);
                 break;
             }

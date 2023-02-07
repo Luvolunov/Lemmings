@@ -14,6 +14,7 @@
 		015EA65A28EC5F430080926E /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 015EA65828EC5F430080926E /* game.cpp */; };
 		0178142128EDA6AC0006CE49 /* game-object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0178141F28EDA6AC0006CE49 /* game-object.cpp */; };
 		0183B17C28EC0ECC00A01EC9 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0183B17B28EC0ECC00A01EC9 /* main.cpp */; };
+		01A4FC462991F15D00D1238B /* functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01A4FC442991F15D00D1238B /* functions.cpp */; };
 		01C058A729795FD400DD01F8 /* soldier.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01C058A529795FD400DD01F8 /* soldier.cpp */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,8 @@
 		0183B17828EC0ECC00A01EC9 /* Lemmings */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lemmings; sourceTree = BUILT_PRODUCTS_DIR; };
 		0183B17B28EC0ECC00A01EC9 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0187580F28EC1FD700307121 /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
+		01A4FC442991F15D00D1238B /* functions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = functions.cpp; sourceTree = "<group>"; };
+		01A4FC452991F15D00D1238B /* functions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = functions.hpp; sourceTree = "<group>"; };
 		01C058A529795FD400DD01F8 /* soldier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = soldier.cpp; sourceTree = "<group>"; };
 		01C058A629795FD400DD01F8 /* soldier.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = soldier.hpp; sourceTree = "<group>"; };
 		01F5023428EEA4D300E51A07 /* soldier-run.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "soldier-run.png"; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 				01413838297FC23D0031F166 /* buttons.cpp */,
 				01413839297FC23D0031F166 /* buttons.hpp */,
 				01FC33EF29816C36006F67A4 /* constants.h */,
+				01A4FC442991F15D00D1238B /* functions.cpp */,
+				01A4FC452991F15D00D1238B /* functions.hpp */,
 			);
 			path = Lemmings;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0178142128EDA6AC0006CE49 /* game-object.cpp in Sources */,
+				01A4FC462991F15D00D1238B /* functions.cpp in Sources */,
 				0141383A297FC23D0031F166 /* buttons.cpp in Sources */,
 				0183B17C28EC0ECC00A01EC9 /* main.cpp in Sources */,
 				01C058A729795FD400DD01F8 /* soldier.cpp in Sources */,

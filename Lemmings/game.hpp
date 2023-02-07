@@ -49,6 +49,9 @@ public:
     GameState state; // Состояние игры (игра или меню)
     GameObject fire;
     GameObject soldierHead;
+    
+    SDL_Cursor *pointerCursor;
+    SDL_Cursor *defaultCursor;
 };
 
 #endif /* game_hpp */
