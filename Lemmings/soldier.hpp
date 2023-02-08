@@ -20,8 +20,8 @@ private:
     SDL_Renderer *renderer; // Ссылка на рендерер
     SoldierMode mode = run; // Состояние солдата
     const char *runSprite = "assets/soldier-run.png"; // Путь до спрайта с бегущим солдатом
-    const char *flySprite = "assets/soldier-dig.png"; // Путь до спрайта с летящим солдатом
-    const char *digDownSprite = "assets/soldier-fly-orig.png"; // Путь до спрайта с копающим вниз солдатом
+    const char *flySprite = "assets/soldier-fly-2.png"; // Путь до спрайта с летящим солдатом
+    const char *digDownSprite = "assets/soldier-dig-2.png"; // Путь до спрайта с копающим вниз солдатом
     const char *digToDirectionSprite = "assets/soldier-dig-direction.png"; // Путь до спрайта с копающим в сторону солдатом
     const char *blockSprite = "assets/soldier-block.png"; // Путь до спрайта с блокирующим солдатом
     
